@@ -59,5 +59,4 @@ public class PatientService {
             patient.setEmail(email);
         }
     }
-
 }
