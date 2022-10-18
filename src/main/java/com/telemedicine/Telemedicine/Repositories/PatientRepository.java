@@ -1,5 +1,6 @@
-package com.Telemedicine.Telemedicine.patient;
+package com.Telemedicine.Telemedicine.Repositories;
 
+import com.Telemedicine.Telemedicine.Models.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,7 @@
-package com.Telemedicine.Telemedicine.patient;
+package com.Telemedicine.Telemedicine.Controllers;
 
+import com.Telemedicine.Telemedicine.Models.Patient;
+import com.Telemedicine.Telemedicine.Services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
