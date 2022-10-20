@@ -24,6 +24,10 @@ public class Appointment {
     private LocalDate date;
     private LocalTime time;
 
+    @ManyToOne
+    @JoinColumn(name = "patientId", nullable = false, referencedColumnName = "id")
+    private Patient patient;
+
     public Appointment() {
     }
 

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table
@@ -31,6 +32,17 @@ public class Patient {
     private String prescriptions;
     @Transient //Annotation means that this does not need to be a database column.
     private int age;
+
+    @ManyToOne
+    @JoinColumn(name = "healthcareProfessionalId", nullable = false, referencedColumnName = "id")
+    private HealthcareProfessional healthcareProfessional;
+
+    @ManyToOne
+    @JoinColumn(name = "hospitalId", nullable = false, referencedColumnName = "id")
+    private Hospital hospital;
+
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
+    private Collection<Appointment> appointment;
 
     public Patient() {
     }
@@ -96,7 +108,7 @@ public class Patient {
         this.dob = dob;
     }
 
-    public int getAge() {
+    public int getAge()  {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }
 

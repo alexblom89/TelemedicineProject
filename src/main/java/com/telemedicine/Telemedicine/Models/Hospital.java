@@ -2,9 +2,10 @@ package com.Telemedicine.Telemedicine.Models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
-@Table
+@Table(name = "hospital")
 public class Hospital {
     @Id
     @SequenceGenerator(
@@ -20,6 +21,12 @@ public class Hospital {
     private String name;
     private String address;
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
+    private Collection<HealthcareProfessional> healthcareProfessional;
+
+    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
+    private Collection<Patient> patient;
 
     public Hospital() {
     }

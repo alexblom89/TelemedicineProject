@@ -2,9 +2,10 @@ package com.Telemedicine.Telemedicine.Models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
-@Table
+@Table(name = "healthcareProfessional")
 public class HealthcareProfessional {
 
     @Id
@@ -25,6 +26,14 @@ public class HealthcareProfessional {
     private String address;
     private String phoneNumber;
     private String specialty;
+
+    @ManyToOne
+    @JoinColumn(name = "hospitalId", nullable = false, referencedColumnName = "id")
+    private Hospital hospital;
+
+    @OneToMany(mappedBy = "healthcareProfessional", cascade = CascadeType.ALL)
+    private Collection<Patient> patient;
+
 
     public HealthcareProfessional() {
     }
