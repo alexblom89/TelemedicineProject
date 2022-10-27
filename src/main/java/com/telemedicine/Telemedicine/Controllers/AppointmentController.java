@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/appointment")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin()
 public class AppointmentController {
 
     private final AppointmentService appointmentService;

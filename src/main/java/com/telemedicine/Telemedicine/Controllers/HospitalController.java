@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/hospital")
+@CrossOrigin()
 public class HospitalController {
 
     private final HospitalService hospitalService;

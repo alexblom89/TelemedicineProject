@@ -20,24 +20,28 @@ public class Appointment {
             strategy = GenerationType.SEQUENCE,
             generator = "appointment_sequence"
     )
+
     private Long id;
+    private String name;
     private LocalDate date;
     private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name = "patientId", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "patientId", nullable = true, referencedColumnName = "id")
     private Patient patient;
 
     public Appointment() {
     }
 
-    public Appointment(Long id, LocalDate date, LocalTime time) {
+    public Appointment(Long id, String name, LocalDate date, LocalTime time) {
         this.id = id;
+        this.name = name;
         this.date = date;
         this.time = time;
     }
 
-    public Appointment(LocalDate date, LocalTime time) {
+    public Appointment(String name, LocalDate date, LocalTime time) {
+        this.name = name;
         this.date = date;
         this.time = time;
     }
@@ -66,10 +70,19 @@ public class Appointment {
         this.time = time;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
+                ", name=" + name +
                 ", date=" + date +
                 ", time=" + time +
                 '}';

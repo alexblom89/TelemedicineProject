@@ -23,11 +23,10 @@ public class AppointmentService {
     }
 
     public Appointment getAppointmentById(Long appointmentId) {
-        Appointment appointment = appointmentRepository.findById(appointmentId)
+        return appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new IllegalStateException(
                         "appointment with id " + appointmentId + "does not exist"
                 ));
-        return appointment;
     }
 
     public void addNewAppointment(Appointment appointment) {
@@ -46,6 +45,7 @@ public class AppointmentService {
     public Appointment updateAppointment(Long appointmentId, Appointment newAppointment) {
         return appointmentRepository.findById(appointmentId)
                 .map(appointment -> {
+                    appointment.setName(newAppointment.getName());
                     appointment.setDate(newAppointment.getDate());
                     appointment.setTime(newAppointment.getTime());
                     return appointmentRepository.save(appointment);
