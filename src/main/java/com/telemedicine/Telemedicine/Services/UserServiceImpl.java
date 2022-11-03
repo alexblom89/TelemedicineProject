@@ -19,13 +19,13 @@ import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
-    private final UserRepository userRepo;
-    private final RoleRepository roleRepo;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         if(user == null) {
             throw new UsernameNotFoundException("User not found in the database");
         } else {
@@ -33,35 +33,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.getRoles().forEach(role -> {
                 authorities.add(new SimpleGrantedAuthority(role.getName()));
             });
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
         }
     }
 
     @Override
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
-        return roleRepo.save(role);
+        return roleRepository.save(role);
     }
 
     @Override
-    public void addRoleToUser(String username, String roleName) {
-        User user = userRepo.findByUsername(username);
-        Role role = roleRepo.findByName(roleName);
+    public void addRoleToUser(String email, String roleName) {
+        User user = userRepository.findByEmail(email);
+        Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
     }
 
     @Override
-    public User getUser(String username) {
-        return userRepo.findByUsername(username);
+    public User getUser(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public List<User> getUsers() {
-        return userRepo.findAll();
+        return userRepository.findAll();
     }
 }
