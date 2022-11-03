@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-
+@CrossOrigin()
 public class UserController {
     private final UserService userService;
 
@@ -71,7 +71,7 @@ public class UserController {
                 String username = decodedJWT.getSubject();
                 User user = userService.getUser(username);
                 String access_token = JWT.create()
-                        .withSubject(user.getUsername())
+                        .withSubject(user.getEmail())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
