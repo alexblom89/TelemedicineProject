@@ -72,6 +72,7 @@ public class User {
         this.password = password;
     }
 
+
     public Collection<Role> getRoles() {
         return roles;
     }

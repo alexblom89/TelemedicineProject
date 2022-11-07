@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         return userRepository.save(user);
     }
 
