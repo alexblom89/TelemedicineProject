@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/appointment")
+@RequestMapping(path = "api/appointment")
 @CrossOrigin()
 public class AppointmentController {
 

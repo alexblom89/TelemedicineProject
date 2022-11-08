@@ -27,14 +27,6 @@ public class HealthcareProfessional {
     private String phoneNumber;
     private String specialty;
 
-    @ManyToOne
-    @JoinColumn(name = "hospitalId", nullable = false, referencedColumnName = "id")
-    private Hospital hospital;
-
-    @OneToMany(mappedBy = "healthcareProfessional", cascade = CascadeType.ALL)
-    private Collection<Patient> patient;
-
-
     public HealthcareProfessional() {
     }
 
