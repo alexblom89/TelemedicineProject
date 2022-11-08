@@ -1,6 +1,5 @@
 package com.Telemedicine.Telemedicine.Controllers;
 
-
 import com.Telemedicine.Telemedicine.Models.Role;
 import com.Telemedicine.Telemedicine.Models.User;
 import com.Telemedicine.Telemedicine.Services.UserService;
@@ -14,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,6 +40,12 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>>getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<User>getUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return ResponseEntity.ok().body(userService.getUser(auth.getName()));
     }
 
     @PostMapping("/user/save")
