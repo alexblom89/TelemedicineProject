@@ -2,7 +2,9 @@ package com.Telemedicine.Telemedicine.Services;
 
 import com.Telemedicine.Telemedicine.Models.HealthcareProfessional;
 import com.Telemedicine.Telemedicine.Repositories.HealthcareProfessionalRepository;
+import com.Telemedicine.Telemedicine.Repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,10 +16,16 @@ import java.util.Optional;
 public class HealthcareProfessionalService {
 
     private final HealthcareProfessionalRepository healthcareProfessionalRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+
 
     @Autowired
-    public HealthcareProfessionalService(HealthcareProfessionalRepository healthcareProfessionalRepository) {
+    public HealthcareProfessionalService(HealthcareProfessionalRepository healthcareProfessionalRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.healthcareProfessionalRepository = healthcareProfessionalRepository;
+        this.passwordEncoder = passwordEncoder;
+
+        this.roleRepository = roleRepository;
     }
 
     public List<HealthcareProfessional> getHealthcareProfessionals() {
@@ -29,6 +37,8 @@ public class HealthcareProfessionalService {
         if (healthcareProfessionalOptional.isPresent()) {
             throw new IllegalStateException("email taken");
         }
+        healthcareProfessional.setPassword(passwordEncoder.encode(healthcareProfessional.getPassword()));
+        healthcareProfessional.getRoles().add(roleRepository.findByName("ROLE_USER"));
         healthcareProfessionalRepository.save(healthcareProfessional);
     }
 
