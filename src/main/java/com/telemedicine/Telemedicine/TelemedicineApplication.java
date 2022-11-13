@@ -27,8 +27,9 @@ public class TelemedicineApplication {
 	@Bean
 	CommandLineRunner run(UserService userService) {
 		return args -> {
-			userService.saveRole(new Role(null, "ROLE_USER"));
-			userService.saveRole(new Role(null, "ROLE_ADMIN"));
+			userService.saveRole(new Role(null, "ROLE_PATIENT"));
+			userService.saveRole(new Role(null, "ROLE_HP"));
+			userService.saveRole(new Role(null, "ROLE_HOSPITAL"));
 
 			userService.saveUser(new User( "John Travolta", "john", "1234", new ArrayList<>()));
 			userService.saveUser(new User("Will Smith", "will", "1234", new ArrayList<>()));
@@ -36,8 +37,8 @@ public class TelemedicineApplication {
 			userService.saveUser(new User("Arnold Schwarzenegger", "arnold", "1234", new ArrayList<>()));
 
 
-			userService.addRoleToUser("jim", "ROLE_USER");
-			userService.addRoleToUser("arnold", "ROLE_ADMIN");
+			userService.addRoleToUser("jim", "ROLE_PATIENT");
+			userService.addRoleToUser("arnold", "ROLE_HOSPITAL");
 		};
 		}
 

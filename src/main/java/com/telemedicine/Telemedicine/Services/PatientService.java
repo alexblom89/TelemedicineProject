@@ -36,7 +36,7 @@ public class PatientService {
             throw new IllegalStateException("email taken");
         }
         patient.setPassword(passwordEncoder.encode(patient.getPassword()));
-        patient.getRoles().add(roleRepository.findByName("ROLE_USER"));
+        patient.getRoles().add(roleRepository.findByName("ROLE_PATIENT"));
         patientRepository.save(patient);
     }
 

@@ -31,7 +31,7 @@ public class HospitalService {
 
     public void addNewHospital(Hospital hospital) {
         hospital.setPassword(passwordEncoder.encode(hospital.getPassword()));
-        hospital.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
+        hospital.getRoles().add(roleRepository.findByName("ROLE_HOSPITAL"));
         hospitalRepository.save(hospital);
     }
 

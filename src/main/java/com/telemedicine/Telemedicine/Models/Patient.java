@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table
@@ -28,6 +29,10 @@ public class Patient extends User {
     private String prescriptions;
     @Transient //Annotation means that this does not need to be a database column.
     private int age;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.LAZY)
+    @JoinColumn(name = "patient_id",referencedColumnName="id")
+    private List<Appointment> appointmentList = new ArrayList<Appointment>();
 
     public Patient() {
     }

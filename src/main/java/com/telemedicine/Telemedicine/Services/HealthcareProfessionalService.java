@@ -38,7 +38,7 @@ public class HealthcareProfessionalService {
             throw new IllegalStateException("email taken");
         }
         healthcareProfessional.setPassword(passwordEncoder.encode(healthcareProfessional.getPassword()));
-        healthcareProfessional.getRoles().add(roleRepository.findByName("ROLE_USER"));
+        healthcareProfessional.getRoles().add(roleRepository.findByName("ROLE_PATIENT"));
         healthcareProfessionalRepository.save(healthcareProfessional);
     }
 

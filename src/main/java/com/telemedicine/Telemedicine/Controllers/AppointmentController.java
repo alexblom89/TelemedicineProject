@@ -1,8 +1,13 @@
 package com.Telemedicine.Telemedicine.Controllers;
 
 import com.Telemedicine.Telemedicine.Models.Appointment;
+import com.Telemedicine.Telemedicine.Models.Patient;
+import com.Telemedicine.Telemedicine.Models.User;
+import com.Telemedicine.Telemedicine.Repositories.PatientRepository;
 import com.Telemedicine.Telemedicine.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,14 +20,16 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
+
     @Autowired
     public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
     @GetMapping
-    public List<Appointment> getAppointments() {
-        return appointmentService.getAppointments();
+    public List<Appointment> getAppointments(Patient patientId) {
+        long id = patientId.getId();
+        return appointmentService.getAppointments(id);
     }
 
     @GetMapping(path = "{appointmentId}")

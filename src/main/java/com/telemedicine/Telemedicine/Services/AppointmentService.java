@@ -1,8 +1,12 @@
 package com.Telemedicine.Telemedicine.Services;
 
 import com.Telemedicine.Telemedicine.Models.Appointment;
+import com.Telemedicine.Telemedicine.Models.User;
 import com.Telemedicine.Telemedicine.Repositories.AppointmentRepository;
+import com.Telemedicine.Telemedicine.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,8 +22,8 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointmentRepository.findAll();
+    public List<Appointment> getAppointments(long patient_id) {
+        return appointmentRepository.findAllByPatientId(patient_id);
     }
 
     public Appointment getAppointmentById(Long appointmentId) {
