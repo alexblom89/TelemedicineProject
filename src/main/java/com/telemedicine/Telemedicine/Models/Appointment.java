@@ -32,22 +32,28 @@ public class Appointment {
     @JoinColumn(name = "healthcare_professional_id", referencedColumnName = "id")
     private HealthcareProfessional healthcareProfessional;
 
+    @ManyToOne
+    @JoinColumn(name="patient_id", nullable=true)
+    private Patient patient;
+
     public Appointment() {
     }
 
-    public Appointment(Long id, String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional) {
+    public Appointment(Long id, String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.time = time;
         this.healthcareProfessional = healthcareProfessional;
+        this.patient = patient;
     }
 
-    public Appointment(String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional) {
+    public Appointment(String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
         this.name = name;
         this.date = date;
         this.time = time;
         this.healthcareProfessional = healthcareProfessional;
+        this.patient = patient;
     }
 
     public Long getId() {
@@ -88,6 +94,14 @@ public class Appointment {
 
     public void setHealthcareProfessional(HealthcareProfessional healthcareProfessional) {
         this.healthcareProfessional = healthcareProfessional;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.Telemedicine.Telemedicine.Services;
 
 import com.Telemedicine.Telemedicine.Models.Appointment;
-import com.Telemedicine.Telemedicine.Models.User;
 import com.Telemedicine.Telemedicine.Repositories.AppointmentRepository;
 import com.Telemedicine.Telemedicine.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,18 @@ import java.util.List;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository) {
+    public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository) {
         this.appointmentRepository = appointmentRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Appointment> getAppointments() {
-        return appointmentRepository.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Long id = userRepository.findByEmail(auth.getName()).getId();
+        return appointmentRepository.findAllByPatientId(id);
     }
 
     public Appointment getAppointmentById(Long appointmentId) {

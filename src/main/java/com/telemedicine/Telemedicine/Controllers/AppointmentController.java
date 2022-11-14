@@ -1,16 +1,13 @@
 package com.Telemedicine.Telemedicine.Controllers;
 
 import com.Telemedicine.Telemedicine.Models.Appointment;
-import com.Telemedicine.Telemedicine.Models.Patient;
-import com.Telemedicine.Telemedicine.Models.User;
-import com.Telemedicine.Telemedicine.Repositories.PatientRepository;
+import com.Telemedicine.Telemedicine.Repositories.UserRepository;
 import com.Telemedicine.Telemedicine.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
