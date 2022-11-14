@@ -1,6 +1,8 @@
 package com.Telemedicine.Telemedicine.Models;
 
 
+import com.sun.source.doctree.DocTree;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,23 +29,25 @@ public class Appointment {
     private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name="patient_id", nullable=true)
-    private Patient patient;
+    @JoinColumn(name = "healthcare_professional_id", referencedColumnName = "id")
+    private HealthcareProfessional healthcareProfessional;
 
     public Appointment() {
     }
 
-    public Appointment(Long id, String name, LocalDate date, LocalTime time) {
+    public Appointment(Long id, String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.time = time;
+        this.healthcareProfessional = healthcareProfessional;
     }
 
-    public Appointment(String name, LocalDate date, LocalTime time) {
+    public Appointment(String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional) {
         this.name = name;
         this.date = date;
         this.time = time;
+        this.healthcareProfessional = healthcareProfessional;
     }
 
     public Long getId() {
@@ -76,6 +80,14 @@ public class Appointment {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public HealthcareProfessional getHealthcareProfessional() {
+        return healthcareProfessional;
+    }
+
+    public void setHealthcareProfessional(HealthcareProfessional healthcareProfessional) {
+        this.healthcareProfessional = healthcareProfessional;
     }
 
     @Override

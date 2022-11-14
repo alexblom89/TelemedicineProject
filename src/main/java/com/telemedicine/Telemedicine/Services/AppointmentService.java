@@ -22,8 +22,8 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> getAppointments(long patient_id) {
-        return appointmentRepository.findAllByPatientId(patient_id);
+    public List<Appointment> getAppointments() {
+        return appointmentRepository.findAll();
     }
 
     public Appointment getAppointmentById(Long appointmentId) {
@@ -52,6 +52,7 @@ public class AppointmentService {
                     appointment.setName(newAppointment.getName());
                     appointment.setDate(newAppointment.getDate());
                     appointment.setTime(newAppointment.getTime());
+                    appointment.setHealthcareProfessional(newAppointment.getHealthcareProfessional());
                     return appointmentRepository.save(appointment);
                 })
                 .orElseThrow(() -> new IllegalStateException(

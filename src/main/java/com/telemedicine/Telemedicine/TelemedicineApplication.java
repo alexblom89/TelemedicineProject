@@ -38,6 +38,7 @@ public class TelemedicineApplication {
 
 
 			userService.addRoleToUser("jim", "ROLE_PATIENT");
+			userService.addRoleToUser("will", "ROLE_HP");
 			userService.addRoleToUser("arnold", "ROLE_HOSPITAL");
 		};
 		}
