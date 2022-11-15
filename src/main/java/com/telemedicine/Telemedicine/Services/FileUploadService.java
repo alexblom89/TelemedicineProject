@@ -1,34 +1,36 @@
 package com.Telemedicine.Telemedicine.Services;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import com.Telemedicine.Telemedicine.Models.FileModel;
+import com.Telemedicine.Telemedicine.Repositories.FileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.stream.Stream;
 
+@Service
 public class FileUploadService {
-    public static String saveFile(String fileName, MultipartFile multipartFile)
-            throws
-            IOException {
-        Path uploadPath = Paths.get("Uploads");
 
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+    private final FileRepository fileRepository;
+    @Autowired
+    FileUploadService(FileRepository fileRepository) {
+        this.fileRepository = fileRepository;
+    }
 
-        String fileCode = RandomStringUtils.randomAlphanumeric(8);
+    public FileModel store(MultipartFile file) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        FileModel fileModel = new FileModel(fileName, file.getContentType(), file.getBytes());
 
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new IOException("Could not save file: " + fileName, e);
-        }
+        return fileRepository.save(fileModel);
+    }
 
-        return fileCode;
+    public FileModel getFile(String id) {
+        return fileRepository.findById(id).get();
+    }
+
+    public Stream<FileModel> getAllFiles() {
+        return fileRepository.findAll().stream();
     }
 }
