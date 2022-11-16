@@ -5,10 +5,12 @@ import com.Telemedicine.Telemedicine.Repositories.AppointmentRepository;
 import com.Telemedicine.Telemedicine.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -26,7 +28,10 @@ public class AppointmentService {
     public List<Appointment> getAppointments() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Long id = userRepository.findByEmail(auth.getName()).getId();
-        return appointmentRepository.findAllByPatientId(id);
+        if(auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_HP"))) {
+            return appointmentRepository.findAllByHealthcareProfessionalId(id);
+        }else
+            return appointmentRepository.findAllByPatientId(id);
     }
 
     public Appointment getAppointmentById(Long appointmentId) {

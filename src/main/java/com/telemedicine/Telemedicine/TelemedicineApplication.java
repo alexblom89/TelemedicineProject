@@ -1,7 +1,9 @@
 package com.Telemedicine.Telemedicine;
 
-import com.Telemedicine.Telemedicine.Models.Role;
-import com.Telemedicine.Telemedicine.Models.User;
+import com.Telemedicine.Telemedicine.Models.*;
+import com.Telemedicine.Telemedicine.Services.HealthcareProfessionalService;
+import com.Telemedicine.Telemedicine.Services.HospitalService;
+import com.Telemedicine.Telemedicine.Services.PatientService;
 import com.Telemedicine.Telemedicine.Services.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @SpringBootApplication
 public class TelemedicineApplication {
@@ -25,21 +29,15 @@ public class TelemedicineApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(UserService userService) {
+	CommandLineRunner run(UserService userService, PatientService patientService, HealthcareProfessionalService healthcareProfessionalService, HospitalService hospitalService) {
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_PATIENT"));
 			userService.saveRole(new Role(null, "ROLE_HP"));
 			userService.saveRole(new Role(null, "ROLE_HOSPITAL"));
 
-			userService.saveUser(new User( "John Travolta", "john", "1234", new ArrayList<>()));
-			userService.saveUser(new User("Will Smith", "will", "1234", new ArrayList<>()));
-			userService.saveUser(new User("Jim Carry", "jim", "1234", new ArrayList<>()));
-			userService.saveUser(new User("Arnold Schwarzenegger", "arnold", "1234", new ArrayList<>()));
-
-
-			userService.addRoleToUser("jim", "ROLE_PATIENT");
-			userService.addRoleToUser("will", "ROLE_HP");
-			userService.addRoleToUser("arnold", "ROLE_HOSPITAL");
+			patientService.addNewPatient(new Patient("Jim", "jim", "1234",new ArrayList<>(),LocalDate.now(), "3425 Derek Drive", "7473824325", "", "", ""));
+			healthcareProfessionalService.addNewHealthcareProfessional(new HealthcareProfessional("Will", "will", "1234", new ArrayList<>(), LocalDate.now(),"4328 Fairfax Drive","7623546323","Doctor"));
+			hospitalService.addNewHospital(new Hospital("Orillia Hopital", "Orillia", "1234", new ArrayList<>(),"1236 Payne Street","3124252123"));
 		};
 		}
 
