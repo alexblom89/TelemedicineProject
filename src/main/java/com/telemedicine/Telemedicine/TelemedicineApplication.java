@@ -35,7 +35,8 @@ public class TelemedicineApplication {
 			userService.saveRole(new Role(null, "ROLE_HP"));
 			userService.saveRole(new Role(null, "ROLE_HOSPITAL"));
 
-			patientService.addNewPatient(new Patient("Jim", "jim", "1234",new ArrayList<>(),LocalDate.now(), "3425 Derek Drive", "7473824325", "", "", ""));
+			patientService.addNewPatient(new Patient("Jim", "jim", "1234",new ArrayList<>(),60,LocalDate.now(), "3425 Derek Drive", "7473824325", "", "", ""));
+			patientService.addNewPatient(new Patient("Jake", "jake", "1234",new ArrayList<>(),68,LocalDate.now(), "3425 Derek Drive", "7473824325", "", "", ""));
 			healthcareProfessionalService.addNewHealthcareProfessional(new HealthcareProfessional("Will", "will", "1234", new ArrayList<>(), LocalDate.now(),"4328 Fairfax Drive","7623546323","Doctor"));
 			hospitalService.addNewHospital(new Hospital("Orillia Hopital", "Orillia", "1234", new ArrayList<>(),"1236 Payne Street","3124252123"));
 		};

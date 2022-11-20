@@ -21,20 +21,21 @@ public class Patient extends User {
             generator = "patient_sequence"
     )
 
+    private int age;
     private LocalDate dob;
     private String address;
     private String phoneNumber;
     private String diseases;
     private String allergies;
     private String prescriptions;
-    @Transient //Annotation means that this does not need to be a database column.
-    private int age;
+
 
     public Patient() {
     }
 
-    public Patient(long id, String name, String email, String password, Collection<Role> roles, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
+    public Patient(long id, String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
         super(id, name, email, password, roles);
+        this.age = age;
         this.dob = dob;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -43,14 +44,23 @@ public class Patient extends User {
         this.prescriptions = prescriptions;
     }
 
-    public Patient(String name, String email, String password, Collection<Role> roles, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
+    public Patient(String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
         super(name, email, password, roles);
+        this.age = age;
         this.dob = dob;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.diseases = diseases;
         this.allergies = allergies;
         this.prescriptions = prescriptions;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public LocalDate getDob() {
