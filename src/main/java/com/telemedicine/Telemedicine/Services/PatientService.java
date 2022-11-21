@@ -37,6 +37,7 @@ public class PatientService {
         }
         patient.setPassword(passwordEncoder.encode(patient.getPassword()));
         patient.getRoles().add(roleRepository.findByName("ROLE_PATIENT"));
+        patient.setEmergency(false);
         patientRepository.save(patient);
     }
 
@@ -49,7 +50,7 @@ public class PatientService {
     }
 
     @Transactional
-    public void updatePatient(Long patientId, String name, String email) {
+    public void updatePatient(Long patientId, String name, String email,boolean emergency) {
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new IllegalStateException(
                     "patient with id " + patientId + "does not exist"
@@ -65,6 +66,9 @@ public class PatientService {
                 throw new IllegalStateException("email taken");
             }
             patient.setEmail(email);
+        }
+        if(!emergency){
+            patient.setEmergency(true);
         }
     }
 }

@@ -1,12 +1,9 @@
 package com.Telemedicine.Telemedicine.Models;
 
 
-import com.sun.source.doctree.DocTree;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Period;
 
 @Entity
 @Table
@@ -25,6 +22,7 @@ public class Appointment {
 
     private Long id;
     private String name;
+    private String type;
     private LocalDate date;
     private LocalTime time;
 
@@ -39,17 +37,19 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Long id, String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
+    public Appointment(Long id, String name, String type, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.date = date;
         this.time = time;
         this.healthcareProfessional = healthcareProfessional;
         this.patient = patient;
     }
 
-    public Appointment(String name, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
+    public Appointment(String name, String type, LocalDate date, LocalTime time, HealthcareProfessional healthcareProfessional, Patient patient) {
         this.name = name;
+        this.type = type;
         this.date = date;
         this.time = time;
         this.healthcareProfessional = healthcareProfessional;
@@ -102,6 +102,14 @@ public class Appointment {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

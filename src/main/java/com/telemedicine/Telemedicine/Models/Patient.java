@@ -28,12 +28,13 @@ public class Patient extends User {
     private String diseases;
     private String allergies;
     private String prescriptions;
+    private boolean emergency;
 
 
     public Patient() {
     }
 
-    public Patient(long id, String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
+    public Patient(long id, String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions, boolean emergency) {
         super(id, name, email, password, roles);
         this.age = age;
         this.dob = dob;
@@ -42,9 +43,10 @@ public class Patient extends User {
         this.diseases = diseases;
         this.allergies = allergies;
         this.prescriptions = prescriptions;
+        this.emergency = emergency;
     }
 
-    public Patient(String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions) {
+    public Patient(String name, String email, String password, Collection<Role> roles, int age, LocalDate dob, String address, String phoneNumber, String diseases, String allergies, String prescriptions, boolean emergency) {
         super(name, email, password, roles);
         this.age = age;
         this.dob = dob;
@@ -53,6 +55,7 @@ public class Patient extends User {
         this.diseases = diseases;
         this.allergies = allergies;
         this.prescriptions = prescriptions;
+        this.emergency = emergency;
     }
 
     public int getAge() {
@@ -109,6 +112,14 @@ public class Patient extends User {
 
     public void setPrescriptions(String prescriptions) {
         this.prescriptions = prescriptions;
+    }
+
+    public boolean isEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(boolean emergency) {
+        this.emergency = emergency;
     }
 
 }
