@@ -20,10 +20,14 @@ import java.util.stream.Collectors;
 @CrossOrigin()
 public class FileController {
 
-    @Autowired
-    private FileUploadService fileUploadService;
+    private final FileUploadService fileUploadService;
 
-    @PostMapping("/api/v1/upload")
+    @Autowired
+    public FileController(FileUploadService fileUploadService) {
+        this.fileUploadService = fileUploadService;
+    }
+
+    @PostMapping("/api/upload")
     public ResponseEntity<ResponseMessage> uploadFile(
             @RequestParam("file") MultipartFile file) {
 
