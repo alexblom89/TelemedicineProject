@@ -1,10 +1,6 @@
 package com.Telemedicine.Telemedicine.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,13 +19,18 @@ public class FileModel {
     @Lob
     private byte[] data;
 
+    @ManyToOne
+    @JoinColumn(name="patient_id", nullable=true)
+    private Patient patient;
+
     public FileModel() {
     }
 
-    public FileModel(String name, String type, byte[] data) {
+    public FileModel(String name, String type, byte[] data, Patient patient) {
         this.name = name;
         this.type = type;
         this.data = data;
+        this.patient = patient;
     }
 
     public String getId() {
@@ -62,5 +63,13 @@ public class FileModel {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

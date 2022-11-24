@@ -45,9 +45,11 @@ public class FileController {
         }
     }
 
-    @GetMapping("/files")
-    public ResponseEntity<List<ResponseFile>> getFilesList() {
-        List<ResponseFile> files = fileUploadService.getAllFiles().map(dbFile -> {
+    @GetMapping("/files/{patientId}")
+    public ResponseEntity<List<ResponseFile>> getFilesList(
+            @PathVariable("patientId") Long patientId
+    ) {
+        List<ResponseFile> files = fileUploadService.getFilesByPatientId(patientId).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
@@ -64,8 +66,9 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("/files/{id}")
+    @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+
         FileModel fileModel = fileUploadService.getFile(id);
 
         return ResponseEntity.ok()
