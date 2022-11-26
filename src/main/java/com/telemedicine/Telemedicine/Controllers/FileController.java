@@ -27,7 +27,8 @@ public class FileController {
         this.fileUploadService = fileUploadService;
     }
 
-    @PostMapping("/api/upload")
+    @RequestMapping(value = "/api/upload", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity<ResponseMessage> uploadFile(
             @RequestParam("file") MultipartFile file) {
 

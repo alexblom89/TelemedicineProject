@@ -3,48 +3,36 @@ package com.Telemedicine.Telemedicine.Services;
 import com.Telemedicine.Telemedicine.Models.FileModel;
 import com.Telemedicine.Telemedicine.Models.Patient;
 import com.Telemedicine.Telemedicine.Repositories.FileRepository;
-import com.Telemedicine.Telemedicine.Repositories.UserRepository;
+import com.Telemedicine.Telemedicine.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
 public class FileUploadService {
 
-
-
     private final FileRepository fileRepository;
-
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
-    FileUploadService(FileRepository fileRepository, UserRepository userRepository) {
+    FileUploadService(FileRepository fileRepository, PatientRepository patientRepository) {
         this.fileRepository = fileRepository;
-        this.userRepository = userRepository;
+        this.patientRepository = patientRepository;
     }
 
     public FileModel store(MultipartFile file) throws IOException {
         Patient patient = null;
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            patient = (Patient)auth.getPrincipal();
-        }
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        patient= patientRepository.findPatientByEmail(authentication.getName());
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-        FileModel fileModel = new FileModel(fileName, file.getContentType(), file.getBytes(), patient);
-
+        FileModel fileModel = new FileModel(fileName, file.getContentType(), file.getBytes(),patient );
         return fileRepository.save(fileModel);
     }
 

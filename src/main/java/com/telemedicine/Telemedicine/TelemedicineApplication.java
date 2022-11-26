@@ -28,6 +28,7 @@ public class TelemedicineApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+
 	@Bean
 	CommandLineRunner run(UserService userService, PatientService patientService, HealthcareProfessionalService healthcareProfessionalService, HospitalService hospitalService) {
 		return args -> {

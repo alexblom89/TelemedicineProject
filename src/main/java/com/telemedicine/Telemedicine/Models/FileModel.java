@@ -16,7 +16,6 @@ public class FileModel {
 
     private String type;
 
-    @Lob
     private byte[] data;
 
     @ManyToOne

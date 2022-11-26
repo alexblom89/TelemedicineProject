@@ -31,7 +31,7 @@ public class PatientService {
     }
 
     public void addNewPatient(Patient patient) {
-        Optional<Patient> patientOptional = patientRepository.findPatientByEmail(patient.getEmail());
+        Optional<Patient> patientOptional = Optional.ofNullable(patientRepository.findPatientByEmail(patient.getEmail()));
         if (patientOptional.isPresent()) {
             throw new IllegalStateException("email taken");
         }
@@ -61,7 +61,7 @@ public class PatientService {
         }
 
         if (email != null && email.length() > 0 && !Objects.equals(patient.getEmail(), email)) {
-            Optional<Patient> patientOptional = patientRepository.findPatientByEmail(email);
+            Optional<Patient> patientOptional = Optional.ofNullable(patientRepository.findPatientByEmail(email));
             if (patientOptional.isPresent()) {
                 throw new IllegalStateException("email taken");
             }

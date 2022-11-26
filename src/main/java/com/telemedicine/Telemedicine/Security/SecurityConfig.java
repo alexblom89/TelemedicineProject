@@ -39,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/api/user/save/**","/ws/**","/api/healthcareProfessional/**","/api/patient/**","/api/hospital/**","/api/upload/**", "/files/**").permitAll();
-        http.authorizeRequests().antMatchers( "/api/user/**","/api/appointment/**").hasAnyAuthority("ROLE_PATIENT","ROLE_HP","ROLE_HOSPITAL");
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/api/user/save/**","/ws/**","/api/healthcareProfessional/**","/api/patient/**","/api/hospital/**").permitAll();
+        http.authorizeRequests().antMatchers( "/api/user/**","/api/appointment/**", "/files/**", "/api/upload/**").hasAnyAuthority("ROLE_PATIENT","ROLE_HP","ROLE_HOSPITAL");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/api/**", configuration);
         source.registerCorsConfiguration("/auth/*", configuration);
         source.registerCorsConfiguration("/login", configuration);
+        source.registerCorsConfiguration("/files/**", configuration);
         return source;
     }
 }
