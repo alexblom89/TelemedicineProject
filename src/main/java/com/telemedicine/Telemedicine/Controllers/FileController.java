@@ -53,7 +53,7 @@ public class FileController {
         List<ResponseFile> files = fileUploadService.getFilesByPatientId(patientId).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/files/")
+                    .path("/file/")
                     .path(dbFile.getId())
                     .toUriString();
 
@@ -75,5 +75,10 @@ public class FileController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileModel.getName() + "\"")
                 .body(fileModel.getData());
+    }
+
+    @DeleteMapping("/files/{fileName}")
+    public void deleteFile(@PathVariable String fileName) {
+        fileUploadService.deleteFile(fileName);
     }
 }

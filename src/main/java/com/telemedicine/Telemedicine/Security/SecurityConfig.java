@@ -39,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/api/user/save/**","/ws/**","/api/healthcareProfessional/**","/api/patient/**","/api/hospital/**").permitAll();
-        http.authorizeRequests().antMatchers( "/api/user/**","/api/appointment/**", "/files/**", "/api/upload/**").hasAnyAuthority("ROLE_PATIENT","ROLE_HP","ROLE_HOSPITAL");
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**", "/api/user/save/**", "/file/**", "/ws/**").permitAll();
+        http.authorizeRequests().antMatchers( "/api/user/**","/api/appointment/**","/api/healthcareProfessional/**", "/api/patient/**", "/api/hospital/**","/files/**", "/api/upload/**").hasAnyAuthority("ROLE_PATIENT","ROLE_HP","ROLE_HOSPITAL");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

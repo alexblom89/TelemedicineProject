@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -38,6 +39,10 @@ public class FileUploadService {
 
     public FileModel getFile(String id) {
         return fileRepository.findById(id).get();
+    }
+
+    public void deleteFile(String fileName) {
+        fileRepository.deleteByName(fileName);
     }
 
     public Stream<FileModel> getAllFiles() {

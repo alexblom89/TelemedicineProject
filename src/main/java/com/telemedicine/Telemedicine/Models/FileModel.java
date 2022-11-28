@@ -3,6 +3,7 @@ package com.Telemedicine.Telemedicine.Models;
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "files")
@@ -16,6 +17,7 @@ public class FileModel {
 
     private String type;
 
+    @Lob
     private byte[] data;
 
     @ManyToOne
