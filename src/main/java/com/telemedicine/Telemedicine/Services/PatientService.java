@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,6 +40,7 @@ public class PatientService {
         patient.setPassword(passwordEncoder.encode(patient.getPassword()));
         patient.getRoles().add(roleRepository.findByName("ROLE_PATIENT"));
         patient.setEmergency(false);
+        patient.setAge(Period.between(patient.getDob(), LocalDate.now()).getYears());
         patientRepository.save(patient);
     }
 

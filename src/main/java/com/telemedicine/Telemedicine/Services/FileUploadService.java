@@ -28,6 +28,12 @@ public class FileUploadService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Function to store file in database
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public FileModel store(MultipartFile file) throws IOException {
         Patient patient = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

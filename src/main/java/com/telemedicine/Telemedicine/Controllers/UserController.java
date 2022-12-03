@@ -66,12 +66,23 @@ public class UserController {
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
+    /**
+     * Post to add role to user
+     * @param form
+     * @return
+     */
     @PostMapping("/role/addtouser")
     public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form) {
         userService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Get refresh token
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
